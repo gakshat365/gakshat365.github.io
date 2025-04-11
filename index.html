@@ -172,7 +172,7 @@
         body.matrix {
             --background: #000000;
             --text: #00ff41; /* Matrix green */
-            --card-bg: linear-gradient(135deg, #0c1f0c, #000000);
+            --card-bg: linear-gradient(135deg, rgba(12, 31, 12, 0.8), rgba(0, 0, 0, 0.8));
             --accent: var(--user-accent, #00ff41);
             --secondary: #00aa33;
             --nav-bg: rgba(0, 15, 0, 0.97);
@@ -181,8 +181,26 @@
             --heading-font: 'Space Mono', monospace;
             --body-font: 'Courier New', monospace;
             
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='1000' opacity='0.2'%3E%3Ctext x='0' y='20' fill='%2300ff41'%3E01101%3C/text%3E%3Ctext x='30' y='40' fill='%2300ff41'%3E10011%3C/text%3E%3Ctext x='10' y='60' fill='%2300ff41'%3E01010%3C/text%3E%3Ctext x='20' y='80' fill='%2300ff41'%3E11001%3C/text%3E%3Ctext x='5' y='100' fill='%2300ff41'%3E10110%3C/svg%3E");
-            background-repeat: repeat;
+            /* Remove the previous static background image */
+            background-image: none;
+        }
+
+        /* Make sure content appears on top of the matrix animation */
+        body.matrix main {
+            position: relative;
+            z-index: 1;
+        }
+
+        body.matrix section {
+            background: var(--card-bg);
+            backdrop-filter: blur(3px);
+            border: 1px solid var(--accent);
+            box-shadow: inset 0 0 10px var(--accent);
+        }
+
+        body.matrix #hero::before {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(1px);
         }
 
         body.matrix h1, 
@@ -380,7 +398,17 @@
             box-shadow: var(--shadow);
             z-index: 1000;
             transform: translateX(-100%);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, height 0.5s ease;
+            animation: growFromTop 0.5s ease forwards;
+        }
+
+        @keyframes growFromTop {
+            0% {
+            height: 0;
+            }
+            100% {
+            height: 100%;
+            }
         }
 
         #sidebar.active {
@@ -1124,6 +1152,9 @@
         </section>
     </main>
 
+    <!-- Matrix Binary Rain Canvas -->
+    <canvas id="matrixBinaryRain" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></canvas>
+
     <script>
         const themeDefaults = {
             'dune-light': '#e07b39',
@@ -1261,6 +1292,15 @@
             document.body.classList.add(selectedTheme);
             localStorage.setItem('theme', selectedTheme);
 
+            // Check if Matrix theme is selected and update the binary rain
+            if (selectedTheme === 'matrix') {
+                document.getElementById('matrixBinaryRain').style.display = 'block';
+                matrixRainActive = true;
+            } else {
+                document.getElementById('matrixBinaryRain').style.display = 'none';
+                matrixRainActive = false;
+            }
+
             if (!localStorage.getItem('userAccent')) {
                 colorPicker.value = themeDefaults[selectedTheme];
             }
@@ -1364,6 +1404,114 @@
 
         trackEvents();
         document.getElementById('analyze-btn').addEventListener('click', analyzeText);
+
+        // Matrix Binary Rain Animation
+        let matrixRainCanvas;
+        let matrixRainCtx;
+        let matrixRainActive = false;
+        let matrixChars = [];
+        let matrixColumns;
+        let matrixFontSize = 14;
+
+        function setupMatrixRain() {
+            matrixRainCanvas = document.getElementById('matrixBinaryRain');
+            matrixRainCtx = matrixRainCanvas.getContext('2d');
+            
+            // Set canvas to window size
+            matrixRainCanvas.width = window.innerWidth;
+            matrixRainCanvas.height = window.innerHeight;
+            
+            // Define matrix characters - just binary for simplicity
+            matrixChars = ['0', '1'];
+            
+            // Calculate columns based on font size
+            matrixColumns = Math.floor(matrixRainCanvas.width / matrixFontSize);
+            
+            // Initialize drops at random positions
+            const drops = [];
+            for (let i = 0; i < matrixColumns; i++) {
+                drops[i] = Math.floor(Math.random() * -matrixRainCanvas.height / matrixFontSize);
+            }
+            
+            // Draw the matrix animation
+            function drawMatrix() {
+                if (!matrixRainActive) return;
+                
+                // Semi-transparent black to create fade effect
+                matrixRainCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                matrixRainCtx.fillRect(0, 0, matrixRainCanvas.width, matrixRainCanvas.height);
+                
+                matrixRainCtx.fillStyle = '#00ff41'; // Matrix green
+                matrixRainCtx.font = `${matrixFontSize}px monospace`;
+                
+                // Loop over drops
+                for (let i = 0; i < drops.length; i++) {
+                    // Draw random character
+                    const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+                    matrixRainCtx.fillText(text, i * matrixFontSize, drops[i] * matrixFontSize);
+                    
+                    // Move drop down
+                    drops[i]++;
+                    
+                    // Reset drop to top with randomization
+                    if (drops[i] * matrixFontSize > matrixRainCanvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                }
+                
+                // Request next frame
+                requestAnimationFrame(drawMatrix);
+            }
+            
+            // Handle theme changes
+            function handleMatrixTheme() {
+                if (document.body.classList.contains('matrix')) {
+                    matrixRainCanvas.style.display = 'block';
+                    if (!matrixRainActive) {
+                        matrixRainActive = true;
+                        drawMatrix();
+                    }
+                } else {
+                    matrixRainCanvas.style.display = 'none';
+                    matrixRainActive = false;
+                }
+            }
+            
+            // Handle resize
+            window.addEventListener('resize', () => {
+                if (matrixRainActive) {
+                    matrixRainCanvas.width = window.innerWidth;
+                    matrixRainCanvas.height = window.innerHeight;
+                    matrixColumns = Math.floor(matrixRainCanvas.width / matrixFontSize);
+                    
+                    // Reset drops
+                    const drops = [];
+                    for (let i = 0; i < matrixColumns; i++) {
+                        drops[i] = Math.floor(Math.random() * matrixRainCanvas.height / matrixFontSize);
+                    }
+                }
+            });
+            
+            // Add listener to the theme selector
+            themeSelect.addEventListener('change', handleMatrixTheme);
+            
+            // Initial check
+            handleMatrixTheme();
+        }
+
+        // Initialize Matrix rain on DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Your existing code...
+            
+            // Add Matrix binary rain setup
+            setupMatrixRain();
+            
+            // Check if Matrix theme is active on load
+            if (document.body.classList.contains('matrix')) {
+                document.getElementById('matrixBinaryRain').style.display = 'block';
+                matrixRainActive = true;
+            }
+        });
     </script>
 </body>
 
