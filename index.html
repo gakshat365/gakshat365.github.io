@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akshat Gupta | Master of Arrakis</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;700&family=Space+Mono&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --user-accent: #e07b39; /* Default accent color */
+            --background: #f5e6cc;
+            --text: #8c552c;
+            --card-bg: linear-gradient(135deg, #f9e8d9, #f0d9b5);
+            --accent: var(--user-accent);
+            --secondary: #d9a674;
+            --highlight: var(--accent);
+            --nav-bg: rgba(245, 230, 204, 0.95);
+            --shadow: 0 8px 20px rgba(140, 85, 44, 0.2);
+            --border: #e0c9a0;
+        }
+
+        body.cyberpunk {
+            --background: #0a0e17;
+            /* Dark blue-black */
+            --text: #e0e6ed;
+            /* Light grey-blue */
+            --card-bg: linear-gradient(135deg, #1a2332, #2a3547);
+            /* Dark gradient */
+            --accent: var(--user-accent, #00ffcc);
+            /* Neon cyan */
+            --secondary: #ff007a;
+            /* Neon pink */
+            --nav-bg: rgba(26, 35, 50, 0.95);
+            /* Semi-transparent dark */
+            --shadow: 0 8px 20px rgba(0, 255, 204, 0.3);
+            /* Neon glow */
+            --border: #00ccff;
+            /* Neon blue border */
+        }
+
+        body.vaporwave {
+            --background: #330867;  /* Deep purple background */
+            --text: #fcfcfc;  /* Bright white text */
+            --card-bg: linear-gradient(135deg, #30cfd0, #c43ad6);  /* Teal to pink gradient */
+            --accent: var(--user-accent, #ff71ce);  /* Neon pink */
+            --secondary: #01cdfe;  /* Bright cyan */
+            --nav-bg: rgba(51, 8, 103, 0.95);  /* Semi-transparent deep purple */
+            --shadow: 0 8px 20px rgba(255, 113, 206, 0.4);  /* Pink glow shadow */
+            --border: #b967ff;  /* Neon purple */
+            --heading-font: 'Montserrat', sans-serif;
+            --body-font: 'Poppins', sans-serif;
+            
+            /* Add a grid background */
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        body.vaporwave h1, 
+        body.vaporwave h2, 
+        body.vaporwave h3 {
+            font-family: var(--heading-font);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 3px 3px 0 #01cdfe, 6px 6px 0 #b967ff;
+            color: #ff71ce;
+        }
+
+        body.vaporwave p, 
+        body.vaporwave li, 
+        body.vaporwave a {
+            font-family: var(--body-font);
+        }
+
+        body.vaporwave #theme-select {
+            color: #ff71ce;  /* Neon pink for vaporwave */
+            font-weight: bold;
+            background: #1a0133; /* Dark purple background for contrast */
+            border-color: #01cdfe; /* Cyan border */
+        }
+
+        body.vaporwave .ring-circle {
+            box-shadow: 0 0 15px rgba(1, 205, 254, 0.6);
+        }
+
+        body.vaporwave section {
+            border-width: 3px;
+            border-style: solid;
+            border-image: linear-gradient(to bottom right, #ff71ce, #01cdfe) 1;
+        }
+
+        body.vaporwave #hero::before {
+            background: linear-gradient(135deg, rgba(51, 8, 103, 0.7), rgba(201, 57, 214, 0.5));
+            backdrop-filter: blur(2px);
+        }
+
+        /* Add a retro horizontal line style for vaporwave theme */
+        body.vaporwave hr {
+            height: 4px;
+            background: linear-gradient(to right, #ff71ce, #01cdfe, #b967ff);
+            border: none;
+            margin: 30px 0;
+        }
+
+        /* Custom scrollbar for vaporwave theme */
+        body.vaporwave::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        body.vaporwave::-webkit-scrollbar-track {
+            background: #330867;
+        }
+
+        body.vaporwave::-webkit-scrollbar-thumb {
+            background: linear-gradient(#ff71ce, #01cdfe);
+            border-radius: 6px;
+        }
+
+        body.vs-code-light {
+            --background: #ffffff;
+            --text: #000000;
+            --card-bg: linear-gradient(135deg, #f3f3f3, #e0e0e0);
+            --accent: var(--user-accent, #007ACC);
+            --secondary: #6c6c6c;
+            --nav-bg: rgba(243, 243, 243, 0.95);
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            --border: #cccccc;
+        }
+
+        body.vs-code-dark {
+            --background: #1e1e1e;
+            --text: #d4d4d4;
+            --card-bg: linear-gradient(135deg, #252526, #2d2d30);
+            --accent: var(--user-accent, #569CD6);
+            --secondary: #858585;
+            --nav-bg: rgba(37, 37, 38, 0.95);
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            --border: #3c3c3c;
+        }
+
+        body.color-blind-friendly {
+            --background: #f8f8f8;
+            --text: #333333;
+            --card-bg: linear-gradient(135deg, #ffffff, #e6e6e6);
+            --accent: var(--user-accent, #0072b2); /* Blue that's distinguishable in most color blindness types */
+            --secondary: #009e73; /* Green visible to most color blind people */
+            --nav-bg: rgba(248, 248, 248, 0.95);
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            --border: #888888; /* Gray border */
+            --heading-font: 'Montserrat', sans-serif;
+            --body-font: 'Poppins', sans-serif;
+        }
+
+        body.color-blind-friendly h1,
+        body.color-blind-friendly h2,
+        body.color-blind-friendly h3 {
+            font-family: var(--heading-font);
+            font-weight: 600;
+        }
+
+        body.color-blind-friendly #theme-select {
+            color: #0072b2; /* Blue for theme select in color blind mode */
+        }
+
+        body.matrix {
+            --background: #000000;
+            --text: #00ff41; /* Matrix green */
+            --card-bg: linear-gradient(135deg, #0c1f0c, #000000);
+            --accent: var(--user-accent, #00ff41);
+            --secondary: #00aa33;
+            --nav-bg: rgba(0, 15, 0, 0.97);
+            --shadow: 0 8px 20px rgba(0, 255, 65, 0.2);
+            --border: #005522;
+            --heading-font: 'Space Mono', monospace;
+            --body-font: 'Courier New', monospace;
+            
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='1000' opacity='0.2'%3E%3Ctext x='0' y='20' fill='%2300ff41'%3E01101%3C/text%3E%3Ctext x='30' y='40' fill='%2300ff41'%3E10011%3C/text%3E%3Ctext x='10' y='60' fill='%2300ff41'%3E01010%3C/text%3E%3Ctext x='20' y='80' fill='%2300ff41'%3E11001%3C/text%3E%3Ctext x='5' y='100' fill='%2300ff41'%3E10110%3C/svg%3E");
+            background-repeat: repeat;
+        }
+
+        body.matrix h1, 
+        body.matrix h2, 
+        body.matrix h3 {
+            font-family: var(--heading-font);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent);
+        }
+
+        body.matrix p, 
+        body.matrix li, 
+        body.matrix a {
+            font-family: var(--body-font);
+        }
+
+        body.matrix #theme-select {
+            color: #00ff41; /* Keep the bright green text */
+            font-family: var(--body-font);
+            background: #0a1a0a; /* Dark green-black background for contrast */
+            border-color: #00aa33; /* Brighter border */
+        }
+
+        body.matrix .timeline::before {
+            box-shadow: 0 0 5px var(--accent);
+        }
+
+        body.matrix .timeline-item::before {
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        body.matrix #hero::before {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        body.matrix .ring-inner {
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 5px var(--accent);
+        }
+
+        body.matrix section {
+            border: 1px solid var(--accent);
+            box-shadow: inset 0 0 10px var(--accent);
+        }
+
+        body.matrix #analyze-btn {
+            border: 1px solid var(--accent);
+        }
+
+        body.matrix #text-analysis textarea {
+            color: var(--accent);
+            background-color: rgba(0, 0, 0, 0.7);
+            caret-color: var(--accent);
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        body.cyberpunk {
+            --heading-font: 'Space Mono', monospace;
+            --body-font: 'Montserrat', sans-serif;
+        }
+
+        body.cyberpunk h1,
+        body.cyberpunk h2,
+        body.cyberpunk h3 {
+            font-family: var(--heading-font);
+            letter-spacing: 1px;
+        }
+
+        body.cyberpunk p,
+        body.cyberpunk li,
+        body.cyberpunk a {
+            font-family: var(--body-font);
+        }
+
+        body.lord-of-the-rings {
+            --heading-font: 'Playfair Display', serif;
+            --body-font: 'Poppins', sans-serif;
+        }
+
+        body.lord-of-the-rings h1,
+        body.lord-of-the-rings h2,
+        body.lord-of-the-rings h3 {
+            font-family: var(--heading-font);
+            letter-spacing: 0.5px;
+        }
+
+        body.lord-of-the-rings p,
+        body.lord-of-the-rings li,
+        body.lord-of-the-rings a {
+            font-family: var(--body-font);
+        }
+
+        body.vs-code-light,
+        body.vs-code-dark {
+            --heading-font: 'Montserrat', sans-serif;
+            --body-font: 'Poppins', sans-serif;
+        }
+
+        body.vs-code-light h1,
+        body.vs-code-light h2,
+        body.vs-code-light h3,
+        body.vs-code-dark h1,
+        body.vs-code-dark h2,
+        body.vs-code-dark h3 {
+            font-family: var(--heading-font);
+            font-weight: 600;
+        }
+
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: url('https://picsum.photos/1920/1080?random=1') no-repeat center/cover;
+            background-blend-mode: 0.5;
+            position: relative;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(245, 230, 204, 0.5);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeInDown 1.5s ease forwards;
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4em;
+            margin: 0;
+        }
+
+        body.cyberpunk #hero h1 {
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        #hero p {
+            font-size: 1.5em;
+            color: var(--text);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background: var(--nav-bg);
+            padding: 30px 20px;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        #sidebar.active {
+            transform: translateX(0);
+        }
+
+        #sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #sidebar ul li {
+            margin: 20px 0;
+        }
+
+        #sidebar ul li a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        #sidebar ul li a:hover {
+            color: var(--accent);
+        }
+
+        #menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: var(--accent);
+            color: #fff;
+            border: 2px solid var(--text);
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #accent-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: var(--accent);
+            color: #fff;
+            border: 2px solid var(--text);
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+
+        #accent-btn:hover {
+            transform: scale(1.1);
+        }
+
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--secondary);
+            width: 0;
+            z-index: 1002;
+        }
+
+        main {
+            margin-left: 0;
+            padding: 40px;
+            transition: margin-left 0.3s ease;
+        }
+
+        main.shifted {
+            margin-left: 250px;
+        }
+
+        section {
+            padding: 80px 40px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin: 40px 0;
+            border: 2px solid var(--border);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        h2 {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        .animate-item {
+            opacity: 0;
+            transform: translateX(-100px);
+        }
+
+        section.visible .animate-item {
+            animation: slideInLeft 1.2s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        #about {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .about-content {
+            width: 100%;
+            text-align: center;
+        }
+
+        .profile-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .profile-images img {
+            width: 220px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-images img:hover {
+            transform: scale(1.05);
+        }
+
+        .cv-button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 35px;
+            background: var(--card-bg);
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.2em;
+            border: 2px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .cv-button:hover {
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .skills-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .skill-ring {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 20px;
+        }
+
+        .ring-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(#e0c9a0 0%, #e0c9a0 100%);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .skill-ring.visible .ring-circle {
+            animation-play-state: running;
+        }
+
+        /* @keyframes fillCounterclockwise {
+            0% {
+                background: conic-gradient(#e0c9a0 0%, #e0c9a0 100%);
+            }
+
+            100% {
+                background: conic-gradient(var(--accent) 0%, var(--accent) var(--progress), #e0c9a0 var(--progress) 100%);
+            }
+        } */
+
+        .ring-inner {
+            width: 120px;
+            height: 120px;
+            background: var(--card-bg);
+            border-radius: 50%;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--secondary);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            width: 16px;
+            height: 16px;
+            background: var(--highlight);
+            border-radius: 50%;
+            border: 3px solid var(--border);
+        }
+
+        #trip .carousel-container {
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border);
+            margin-top: 30px;
+        }
+
+        #trip .carousel {
+            display: flex;
+            width: 300%;
+            transition: transform 0.8s ease-in-out;
+        }
+
+        #trip .carousel-item {
+            width: 33.333%;
+            position: relative;
+        }
+
+        #trip .carousel img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px 12px 0 0;
+            transition: transform 0.3s;
+        }
+
+        #trip .carousel img:hover {
+            transform: scale(1.02);
+        }
+
+        #trip .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        #text-analysis textarea {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1em;
+            margin-bottom: 20px;
+            resize: vertical;
+        }
+
+        #analyze-btn {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        #analyze-btn:hover {
+            background: var(--highlight);
+        }
+
+        #analysis-output {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 2px solid var(--border);
+        }
+
+        .color-picker-container {
+            position: fixed;
+            bottom: 20px;
+            right: 80px;
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border);
+            z-index: 1000;
+        }
+
+        .color-picker-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--text);
+        }
+
+        #color-picker {
+            width: 100%;
+            height: 40px;
+            cursor: pointer;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+        }
+
+        .theme-selector {
+            margin-top: 20px;
+        }
+
+        .theme-selector h3 {
+            color: var(--text);
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        #theme-select {
+            width: 100%;
+            padding: 8px;
+            background: var(--card-bg);
+            color: var(--text);
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        body.cyberpunk #theme-select {
+            color: #ff007a;
+            /* Neon pink for Cyberpunk */
+        }
+
+
+
+
+        body.lord-of-the-rings #theme-select {
+            color: #d4a017;
+            /* Gold for Lord of the Rings */
+        }
+
+        body.vs-code-dark #theme-select {
+            color: #d77428;
+            /* Brown for VS Code Dark */
+        }
+
+        @media (max-width: 992px) {
+            main {
+                padding: 20px;
+            }
+
+            #sidebar {
+                width: 200px;
+            }
+
+            main.shifted {
+                margin-left: 200px;
+            }
+
+            #hero h1 {
+                font-size: 2.5em;
+            }
+
+            #hero p {
+                font-size: 1.2em;
+            }
+
+            #about {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            #trip .carousel img {
+                height: 250px;
+            }
+
+            .skills-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .profile-images img {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .color-picker-container {
+                bottom: 10px;
+                right: 70px;
+                width: calc(100% - 80px);
+            }
+
+            #accent-btn {
+                right: 10px;
+                padding: 10px;
+            }
+        }
+
+        /* Custom backgrounds for theme selector in all themes */
+
+        /* Default (dune-light) theme */
+        #theme-select {
+            background: #e6d7be;
+            border-color: #c9ad85;
+        }
+
+        /* Cyberpunk theme */
+        body.cyberpunk #theme-select {
+            color: #00ffcc;
+            background: #141f27;
+            border-color: #00ccff;
+        }
+
+        /* VS Code Light theme */
+        body.vs-code-light #theme-select {
+            color: #007ACC;
+            background: #f5f5f5;
+            border-color: #007ACC;
+        }
+
+        /* VS Code Dark theme */
+        body.vs-code-dark #theme-select {
+            color: #569CD6;
+            background: #252526;
+            border-color: #3c3c3c;
+        }
+
+        /* Color Blind Friendly theme */
+        body.color-blind-friendly #theme-select {
+            color: #0072b2;
+            background: #f0f0f0;
+            border-color: #009e73;
+        }
+
+        /* Matrix theme - already implemented */
+        body.matrix #theme-select {
+            color: #00ff41;
+            font-family: var(--body-font);
+            background: #0a1a0a;
+            border-color: #00aa33;
+        }
+
+        /* Vaporwave theme - already implemented */
+        body.vaporwave #theme-select {
+            color: #ff71ce;
+            font-weight: bold;
+            background: #1a0133;
+            border-color: #01cdfe;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="menu-toggle">☰</button>
+    <button id="accent-btn" title="Change Accent Color">🎨</button>
+
+    <nav id="sidebar">
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#trip">Journey</a></li>
+            <li><a href="#text-analysis">Text Analysis</a></li>
+        </ul>
+        <div class="theme-selector">
+            <h3>Theme Selector</h3>
+            <select id="theme-select">
+                <option value="cyberpunk">Cyberpunk</option>
+                <option value="dune-light">Sand-Dunes</option>
+                <!-- <option value="lord-of-the-rings">Lord of the Rings</option> -->
+                <option value="vs-code-light">Cool-Breeze</option>
+                <option value="vs-code-dark">Obsidian-Black</option>
+                <option value="color-blind-friendly">Color Blind Friendly</option>
+                <option value="matrix">Matrix</option>
+                <option value="vaporwave">Vaporwave</option>
+            </select>
+        </div>
+    </nav>
+
+    <!-- Update the color picker container with a reset button -->
+    <div class="color-picker-container">
+        <label for="color-picker" class="color-picker-label">Accent Color</label>
+        <div class="color-picker-controls">
+            <input type="color" id="color-picker" value="#e07b39">
+            <button id="reset-accent" title="Reset to theme default">Reset</button>
+        </div>
+    </div>
+
+    <div id="progress-bar"></div>
+
+    <main>
+        <section id="hero">
+            <div class="hero-content" style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 15vh;">
+                <h1 style="color: #000000;">Akshat Gupta</h1>
+                <h2 style="color: #000000;">A visionary crafting legacies in code and sand, destined to conquer the
+                    dunes of innovation.</h2>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="about-content">
+                <h2 class="animate-item" style="font-size: 2.5em; text-align: center;">About Me</h2>
+                <p class="animate-item" style="font-size: 1.5em; text-align: center;">I'm Akshat Gupta, a passionate
+                    software engineer from Chennai, India. With a blend of technical prowess and a love for exploration,
+                    I navigate the vast deserts of code and culture alike. From building robust applications to
+                    capturing the beauty of my surroundings, I strive to leave a mark of excellence in all I do.</p>
+                <p class="animate-item" style="font-size: 1.5em; text-align: center;">Born in Chennai, I grew up amidst
+                    its vibrant streets and coastal charm. Here are some glimpses of my birthplace:</p>
+            </div>
+            <div class="profile-images animate-item">
+                <img src="https://picsum.photos/200/200?random=1" alt="Akshat Gupta">
+                <img src="https://picsum.photos/200/150?random=2" alt="Chennai Beach">
+                <img src="https://picsum.photos/200/150?random=3" alt="Chennai Streets">
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2 class="animate-item">Skills</h2>
+            <div class="skills-container">
+                <div class="skill-ring animate-item" style="--progress: 324deg;" data-percent="90">
+                    <div class="ring-circle"></div>
+                    <div class="ring-inner">JavaScript</div>
+                </div>
+                <div class="skill-ring animate-item" style="--progress: 306deg;" data-percent="85">
+                    <div class="ring-circle"></div>
+                    <div class="ring-inner">Python</div>
+                </div>
+                <div class="skill-ring animate-item" style="--progress: 252deg;" data-percent="70">
+                    <div class="ring-circle"></div>
+                    <div class="ring-inner">HTML/CSS</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2 class="animate-item">Education</h2>
+            <div class="timeline">
+                <div class="timeline-item animate-item">KG to 12th: DAV Public School, Chennai (2000-2012) - Topped
+                    class in science stream</div>
+                <div class="timeline-item animate-item">B.Tech in CS: IIITH (2012-2016) - Dean's List, Best Project
+                    Award</div>
+                <div class="timeline-item animate-item">M.S. in CS: IIITH (2016-2018) - Published 2 research papers
+                </div>
+                <div class="timeline-item animate-item">Future: Aspiring for IIM Ahmedabad, Bangalore, Calcutta, ISB, or
+                    FMS</div>
+            </div>
+            <div class="text-left" style="margin-top: 40px;">
+                <a href="cv.pdf" target="_blank" class="cv-button animate-item">Download My CV</a>
+            </div>
+        </section>
+
+        <section id="trip">
+            <h2 class="animate-item">Recent Journey</h2>
+            <p class="animate-item">Kothapally Reservoir unfolded like a mirage—an expanse of water cradled by rugged
+                earth, its stillness a testament to nature's quiet power. A moment of respite in my desert odyssey.</p>
+            <div class="carousel-container animate-item">
+                <div class="carousel">
+                    <div class="carousel-item">
+                        <img src="https://picsum.photos/800/400?random=1" alt="Reservoir 1">
+                        <div class="caption">The shimmering waters</div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://picsum.photos/800/400?random=2" alt="Reservoir 2">
+                        <div class="caption">Rugged shores</div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://picsum.photos/800/400?random=3" alt="Reservoir 3">
+                        <div class="caption">Golden sunset</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="text-analysis">
+            <h2 class="animate-item">Text Analysis</h2>
+            <p class="animate-item">Paste your text (10,000+ words) below to analyze it:</p>
+            <textarea id="text-input" class="animate-item" placeholder="Enter your text here..."></textarea>
+            <button id="analyze-btn" class="animate-item">Analyze Text</button>
+            <div id="analysis-output" class="animate-item"></div>
+        </section>
+    </main>
+
+    <script>
+        const themeDefaults = {
+            'dune-light': '#e07b39',
+            'cyberpunk': '#00ffcc', // Neon cyan for Cyberpunk
+            'lord-of-the-rings': '#d4a017', // Gold for Lord of the Rings
+            'vs-code-light': '#007ACC',
+            'vs-code-dark': '#569CD6',
+            'color-blind-friendly': '#0072b2', // Blue that works for color blind users
+            'matrix': '#00ff41', // Matrix green
+            'vaporwave': '#ff71ce' // Neon pink for Vaporwave
+        };
+
+        function trackEvents() {
+            const timestamp = () => new Date().toISOString();
+
+            document.addEventListener('click', (e) => {
+                const target = e.target;
+                let objectType = 'unknown';
+                if (target.tagName === 'A') objectType = 'link';
+                else if (target.tagName === 'IMG') objectType = 'image';
+                else if (target.tagName === 'BUTTON') objectType = 'button';
+                else if (target.tagName === 'P') objectType = 'text';
+                else if (target.classList.contains('carousel-item')) objectType = 'carousel';
+                console.log(`${timestamp()}, click, ${objectType}`);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const sectionId = entry.target.id;
+                        console.log(`${timestamp()}, view, section-${sectionId}`);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            document.querySelectorAll('section').forEach(section => observer.observe(section));
+        }
+
+        function analyzeText() {
+            const text = document.getElementById('text-input').value;
+            const output = document.getElementById('analysis-output');
+
+            const letters = text.match(/[a-zA-Z]/g)?.length || 0;
+            const words = text.split(/\s+/).filter(w => w).length;
+            const spaces = text.match(/\s/g)?.length || 0;
+            const newlines = text.match(/\n/g)?.length || 0;
+            const specialSymbols = text.match(/[^a-zA-Z0-9\s]/g)?.length || 0;
+
+            const tokens = text.toLowerCase().split(/\s+/).filter(w => w);
+
+            const pronouns = ['i', 'you', 'he', 'she', 'it', 'we', 'they', 'me', 'him', 'her', 'us', 'them'];
+            const pronounCount = {};
+            tokens.forEach(token => {
+                if (pronouns.includes(token)) pronounCount[token] = (pronounCount[token] || 0) + 1;
+            });
+
+            const prepositions = ['in', 'on', 'at', 'by', 'for', 'with', 'about', 'against', 'between', 'through'];
+            const prepositionCount = {};
+            tokens.forEach(token => {
+                if (prepositions.includes(token)) prepositionCount[token] = (prepositionCount[token] || 0) + 1;
+            });
+
+            const articles = ['a', 'an'];
+            const articleCount = {};
+            tokens.forEach(token => {
+                if (articles.includes(token)) articleCount[token] = (articleCount[token] || 0) + 1;
+            });
+
+            output.innerHTML = `
+                <h3>Text Statistics</h3>
+                <p>Letters: ${letters}</p>
+                <p>Words: ${words}</p>
+                <p>Spaces: ${spaces}</p>
+                <p>Newlines: ${newlines}</p>
+                <p>Special Symbols: ${specialSymbols}</p>
+                <h3>Pronouns</h3>
+                <p>${Object.entries(pronounCount).map(([k, v]) => `${k}: ${v}`).join(', ') || 'None'}</p>
+                <h3>Prepositions</h3>
+                <p>${Object.entries(prepositionCount).map(([k, v]) => `${k}: ${v}`).join(', ') || 'None'}</p>
+                <h3>Indefinite Articles</h3>
+                <p>${Object.entries(articleCount).map(([k, v]) => `${k}: ${v}`).join(', ') || 'None'}</p>
+            `;
+        }
+
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menu-toggle');
+        const main = document.querySelector('main');
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            main.classList.toggle('shifted');
+        });
+
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    const items = entry.target.querySelectorAll('.animate-item');
+                    items.forEach((item, index) => {
+                        item.style.animationDelay = `${index * 0.3}s`;
+                    });
+                }
+            });
+        }, { threshold: 0.1 });
+        sections.forEach(section => observer.observe(section));
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercentage = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progress-bar').style.width = scrollPercentage + '%';
+        });
+
+        const carousel = document.querySelector('.carousel');
+        let index = 0;
+        function slideCarousel() {
+            index = (index + 1) % 3;
+            carousel.style.transform = `translateX(-${index * 33.333}%)`;
+        }
+        setInterval(slideCarousel, 4000);
+
+        const colorPicker = document.getElementById('color-picker');
+        colorPicker.addEventListener('input', (e) => {
+            const newColor = e.target.value;
+            document.documentElement.style.setProperty('--user-accent', newColor);
+            localStorage.setItem('userAccent', newColor);
+            accentBtn.style.backgroundColor = newColor;
+            document.getElementById('menu-toggle').style.backgroundColor = newColor;
+        });
+
+        const themeSelect = document.getElementById('theme-select');
+        themeSelect.addEventListener('change', () => {
+            const selectedTheme = themeSelect.value;
+            document.body.className = '';
+            document.body.classList.add(selectedTheme);
+            localStorage.setItem('theme', selectedTheme);
+
+            if (!localStorage.getItem('userAccent')) {
+                colorPicker.value = themeDefaults[selectedTheme];
+            }
+
+            const accentColor = getComputedStyle(document.documentElement)
+                .getPropertyValue('--accent').trim();
+            document.getElementById('menu-toggle').style.backgroundColor = accentColor;
+            accentBtn.style.backgroundColor = accentColor;
+        });
+
+        const accentBtn = document.getElementById('accent-btn');
+        const colorPickerContainer = document.querySelector('.color-picker-container');
+        accentBtn.addEventListener('click', () => {
+            colorPickerContainer.style.display =
+                colorPickerContainer.style.display === 'none' ? 'block' : 'none';
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'cyberpunk';
+            const savedAccent = localStorage.getItem('userAccent');
+
+            document.body.classList.add(savedTheme);
+            themeSelect.value = savedTheme;
+
+            if (savedAccent) {
+                document.documentElement.style.setProperty('--user-accent', savedAccent);
+                colorPicker.value = savedAccent;
+            } else {
+                colorPicker.value = themeDefaults[savedTheme];
+            }
+
+            const accentColor = getComputedStyle(document.documentElement)
+                .getPropertyValue('--accent').trim();
+            document.getElementById('menu-toggle').style.backgroundColor = accentColor;
+            accentBtn.style.backgroundColor = accentColor;
+
+            colorPickerContainer.style.display = 'none';
+        });
+
+        const rings = document.querySelectorAll('.skill-ring');
+        const ringObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    const ring = entry.target;
+                    const percent = parseInt(ring.dataset.percent);
+                    const angle = `${(percent / 100) * 360}deg`;
+        
+                    const circle = ring.querySelector('.ring-circle');
+                    circle.style.background = `conic-gradient(var(--accent) 0%, var(--accent) ${angle}, #e0c9a0 ${angle} 100%)`;
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        rings.forEach(ring => ringObserver.observe(ring));
+
+        // Add this code to your script section to fix the reset button functionality
+        const resetAccentBtn = document.getElementById('reset-accent');
+        resetAccentBtn.addEventListener('click', () => {
+            const currentTheme = themeSelect.value;
+            const defaultColor = themeDefaults[currentTheme];
+            
+            // Reset to theme default
+            document.documentElement.style.setProperty('--user-accent', defaultColor);
+            colorPicker.value = defaultColor;
+            
+            // Update buttons
+            accentBtn.style.backgroundColor = defaultColor;
+            document.getElementById('menu-toggle').style.backgroundColor = defaultColor;
+            
+            // Remove stored user accent
+            localStorage.removeItem('userAccent');
+        });
+
+        trackEvents();
+        document.getElementById('analyze-btn').addEventListener('click', analyzeText);
+    </script>
+</body>
+
+</html>
