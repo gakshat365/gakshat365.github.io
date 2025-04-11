@@ -413,28 +413,28 @@
             position: fixed;
             top: 20px;
             left: 20px;
-            z-index: 1001;
+            z-index: 1050;
             background: var(--accent);
             color: #fff;
             border: 2px solid var(--text);
             padding: 15px 20px;
             border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
 
         #accent-btn {
             position: fixed;
             top: 20px;
             right: 20px;
-            z-index: 1001;
+            z-index: 1050;
             background: var(--accent);
             color: #fff;
             border: 2px solid var(--text);
             padding: 15px;
             border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             font-size: 1.2em;
             transition: transform 0.3s ease;
         }
@@ -868,7 +868,7 @@
 
         /* VS Code Dark theme */
         body.vs-code-dark #theme-select {
-            color: #569CD6;
+            color: #FC6969;
             background: #252526;
             border-color: #3c3c3c;
         }
@@ -894,6 +894,100 @@
             font-weight: bold;
             background: #1a0133;
             border-color: #01cdfe;
+        }
+
+        /* Typing animation styles */
+        .typewriter h1 {
+            overflow: hidden;
+            border-right: 0.15em solid var(--accent);
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: 
+                typing 2s steps(40, end),
+                blink-caret 0.75s step-end infinite;
+        }
+
+        .typewriter-subtitle {
+            opacity: 0;
+            overflow: hidden;
+            white-space: normal;
+            margin: 0.5em auto;
+            animation: 
+                fadeIn 1s ease-in forwards;
+            animation-delay: 3.5s;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent) }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Adjust for mobile */
+        @media (max-width: 768px) {
+            .typewriter h1 {
+                font-size: 2.5em;
+                white-space: normal;
+                border-right: none;
+                animation: fadeIn 2s;
+            }
+        }
+
+        /* Fix the menu toggle and accent button for mobile devices */
+        #menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1050;
+            background: var(--accent);
+            color: #fff;
+            border: 2px solid var(--text);
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        #accent-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+            background: var(--accent);
+            color: #fff;
+            border: 2px solid var(--text);
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+
+        /* Hero section styles for mobile */
+        @media (max-width: 576px) {
+            .typewriter h1 {
+                font-size: 2em;
+                white-space: normal;
+            }
+            
+            .typewriter-subtitle {
+                font-size: 1.2em;
+            }
+            
+            #hero {
+                height: auto;
+                min-height: 100vh;
+            }
         }
     </style>
 </head>
@@ -940,9 +1034,10 @@
     <main>
         <section id="hero">
             <div class="hero-content" style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 15vh;">
-                <h1 style="color: #000000;">Akshat Gupta</h1>
-                <h2 style="color: #000000;">A visionary crafting legacies in code and sand, destined to conquer the
-                    dunes of innovation.</h2>
+                <div class="typewriter">
+                    <h1 style="color: #000000;">Akshat Gupta</h1>
+                </div>
+                <h2 class="typewriter-subtitle" style="color: #000000; max-width: 80%;">A visionary crafting legacies in code and sand, destined to conquer the dunes of innovation.</h2>
             </div>
         </section>
 
@@ -1035,7 +1130,7 @@
             'cyberpunk': '#00ffcc', // Neon cyan for Cyberpunk
             'lord-of-the-rings': '#d4a017', // Gold for Lord of the Rings
             'vs-code-light': '#007ACC',
-            'vs-code-dark': '#569CD6',
+            'vs-code-dark': '#FC6969',
             'color-blind-friendly': '#0072b2', // Blue that works for color blind users
             'matrix': '#00ff41', // Matrix green
             'vaporwave': '#ff71ce' // Neon pink for Vaporwave
@@ -1203,6 +1298,33 @@
             accentBtn.style.backgroundColor = accentColor;
 
             colorPickerContainer.style.display = 'none';
+
+            // Update typing animation colors based on theme
+            const updateTypingAnimationColors = () => {
+                const h1Element = document.querySelector('.typewriter h1');
+                const computedStyle = getComputedStyle(document.documentElement);
+                const accentColor = computedStyle.getPropertyValue('--accent').trim();
+                
+                // For dark themes, change the text color to be visible
+                if (document.body.classList.contains('cyberpunk') || 
+                    document.body.classList.contains('matrix') || 
+                    document.body.classList.contains('vaporwave') || 
+                    document.body.classList.contains('vs-code-dark')) {
+                    h1Element.style.color = '#000000';
+                    document.querySelector('.typewriter-subtitle').style.color = '#000000';
+                } else {
+                    h1Element.style.color = '#000000';
+                    document.querySelector('.typewriter-subtitle').style.color = '#000000';
+                }
+                
+                // Set the border color for the typing cursor
+                document.documentElement.style.setProperty('--typing-cursor-color', accentColor);
+            };
+            
+            // Call initially and when theme changes
+            updateTypingAnimationColors();
+            
+            themeSelect.addEventListener('change', updateTypingAnimationColors);
         });
 
         const rings = document.querySelectorAll('.skill-ring');
