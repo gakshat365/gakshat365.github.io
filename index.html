@@ -1176,7 +1176,7 @@
                 if (prepositions.includes(token)) prepositionCount[token] = (prepositionCount[token] || 0) + 1;
             });
 
-            const articles = ['a', 'an'];
+            const articles = ['a', 'an' , 'the'];
             const articleCount = {};
             tokens.forEach(token => {
                 if (articles.includes(token)) articleCount[token] = (articleCount[token] || 0) + 1;
