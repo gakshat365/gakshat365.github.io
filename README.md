@@ -27,3 +27,7 @@ Has smooth transitions and animations.
 A scroll progress bar at the top.
 
 Sidebar navigation that you can collapse if needed.
+
+pronouns = ['i', 'you', 'he', 'she', 'it', 'we', 'they', 'me', 'him', 'her', 'us', 'them'];
+prepositions = ['in', 'on', 'at', 'by', 'for', 'with', 'about', 'against', 'between', 'through'];
+articles = ['a', 'an' , 'the'];
